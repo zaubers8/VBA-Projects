@@ -1,0 +1,2 @@
+# VBA-Projects
+Excel spreadsheets are nowadays one of the most usable tool in almost any workplace, adopted by enterprises across all function, thanks to its simplicity and efficiency.However, one of the most prominent challenge that excel users face is working with manual "repetitive" process - the kind of task that is vital to the existence of business operation, but is usually considered as "boring" or "exhausted".
