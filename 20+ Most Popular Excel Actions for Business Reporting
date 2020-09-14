@@ -1,0 +1,10 @@
+'Mandatory steps need to take before running any Excel command.
+'Step 1: Cover the macro code inside "Sub...End Sub" block:
+    Sub name_of_macro()
+    
+    Put macro code here...
+    
+    End Sub
+   
+'2: Always select objects (sheets, columns, rows, ranges or cells) to perform an actions
+    
