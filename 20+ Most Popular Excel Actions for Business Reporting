@@ -1,4 +1,4 @@
-'Mandatory steps need to take before running any Excel command.
+I. Mandatory steps need to take before running any Excel command:
     'Step 1: Cover the macro code inside "Sub...End Sub" block:
         Sub name_of_macro()
     
@@ -12,27 +12,287 @@
 
     - Select column(s):
         Columns("col_name:col_name").Select                         e.g. Columns("B").Select or Columns("B:D").Select
-    
+        or 
+        Range("cell").EntireColumn.Select
+        
     - Select row(s):
         Rows("row_number:row_number").Select                        e.g. Rows(1).Select or Rows(1:10).Select
-    
+        or
+        Range("cell").EntireRow.Select
+        
     - Select a range (multiple cells):
         Range("top_left_cell:bottom_right cell").Select             e.g. Range("A1:E8").Select
         Range("top_left_cell", "bottom_right cell").Select          
     
     - Select a cell:
-        Range("cell_address").Select                                e.g: Range("A2").Select
+        Range("cell_address").Select                                e.g. Range("A2").Select
     
 
     'Step 3: Start to perform action to object (choose on the list below)
     
     
-'Actions to be selected:
+II. Actions to be selected:
 
-
-
-
-
-
-
+1. Action 1: Assign value to cells:
+    Sub...
     
+    Range("cell:cell").Value = new_value                            e.g. Range("C1:D5").Value = 8
+    
+    End Sub
+
+
+2. Action 2: Fill Down Values/Formula
+    
+    Range("B1:C4").FillDown
+    
+'.FillDown replicates the Range/Selection formula of the first line, regardless of which ActiveCell is selected.
+'.FillDown can be used at intervals greater than one column (E.g. Range("B1:C2").FillDown will replicate the formulas of B1 and C1 to B2 and C2 respectively).
+
+
+3. Insert or Delete columns/rows
+
+a. Insert columns/rows
+
+	• Insert columns
+	- Range("cell").EntireColumn.Insert
+	
+	'Insert columns, customized direction + format:
+	- Columns("C:C").Insert Shift:= xlToRight, CopyOrigin:= xlFormatFromLeftOrAbove
+
+	• Insert row
+	- Range("cell").EntireRow.Insert
+
+	• Insert columns, customized direction + format:
+	- Rows(1:6).Insert Shift:= xlDown, CopyOrigin:= xlFormatFromLeftOrAbove
+
+
+b. Delete
+	Same syntax, replace "insert" by "Delete"
+	
+	○ Explain:
+    Shift:= "xlToRight, xlToLeft, xlUp, xlDown"
+
+
+4. Action 4: Copy/Cut & Paste
+
+a. Copy/Cut & Paste
+
+	Sub…
+    
+	'Choose the sheet to copy from
+	Sheets("sheet_name").Range("cell:cell").Copy/Cu
+    
+	'Initiate Cut/Copy
+	Range("cell:cell").Select
+	Selection.Cut/Copy
+    
+    'Choose the sheet to paste
+	Sheets("sheete_name").Range("cell").Paste
+    
+	'Initiate Paste
+	Range("cell").Select
+	Selection.Paste
+	
+	'End Cut/Copy procedure
+	Application.CutCopyMode = False
+	
+	End Sub
+
+b. Paste Special:
+
+	Sub…
+	
+	Range("cell:cell").Copy/Cut
+	Range("cell").PasteSpecial Paste:=___, Operation:= ___, Skipblank _ := ___, Transpose:= ___
+	
+	End Sub
+	
+    ○ Explain:
+    + Paste:= (xlPasteAll, xlPasteFormats, xlPasteFormulars, xlPasteValues,…)
+
+
+5. Action 5: Get A Range To The Last Used Row
+
+a. Get The Last Used Row:
+	
+	Sub
+	
+	Range("cell").End(xlDown).EntireRow.Select
+	
+	End Sub
+
+
+b. Select A Range To The Last Used Row:
+	
+	Sub
+	
+	Range("cell:cell").Select
+	Range(Selection, Selection.End(xlDown)).Select
+	
+    End Sub
+    
+    
+6. 	Action 6: Formattting
+
+a. Format Cells Number:
+	
+	Range("cell").NumberFormat = …
+	
+
+b. Format Cells Alignment:
+
+• Alignment:
+	
+	Range("cell").HorizontalAlignment = …
+	Range("cell").VerticalAlignment = …
+	
+		○ Explain:
+	(xlGeneral, xlCenter, xlDistributed), xlLeft, xlRight, xlTop, xlBottom
+
+
+• Text Control
+- Wrap Text:
+	Range("cell").WrapText = True/False
+	
+- AutoFit Row/Columns:
+	Rows(number).ShrinkToFit = True/False
+	Columns("A:E").ShrinkToFit = True/False
+	
+- Merge Cells
+	Range("cell").MergeCells = True/False
+	
+    
+c. Font:
+	Range("cell:cell").Font.Name = "Times New Roman"
+				        .FontStyle = "Bold"/"Italic"/"Bold Italic"
+				        .Size = 14
+				        .Color = vbBlack/vbRed…
+				        .Underline = xlUnderlineStyleSingle
+			
+            
+d. Hiding Formulas: (only when the sheet is protected)
+	Sheets("name").Range("cell:cell").FormulaHidden = True
+
+
+7. Action 7: Conditional Formatting:
+	
+	'Choose options of new conditional format: choose to format/modify an exsiting one or delete:
+		Range("cell:cell").FormatConditions.Add/Modify/Delete
+
+	- Syntax:
+		Range("cell:cell").FormatConditions.Add(Type, Operator, Formula 1, Formula 2)
+		
+	○ Explain:
+	+ Type: required, the conditional format will be based on cell value or an expression?
+	+ Operator: optional, represents the operator to be used with a value when ‘Type’ is based on cell value.
+	+ Formula1: optional, represents the benchmark value or expression
+	+ Formula2: optional, represents the value or expression associated with the second part of conditional format when the parameter: ‘Operator’ is either ‘xlBetween’ or ‘xlNotBetween’
+	
+	Type	                Operator
+	xlCellValue	            xlEqual
+	xlBlanksConditions	    xlGreater(Equal)
+	xlExpression	        xlLess(Equal)
+	xlAboveAverageCondition	xlBetween
+	xlTop10	                xlNotEqual
+	xlUniqueValue	        xlNotBetween
+	xlTextString	        xlBeginsWith
+	xlTimePeriod	        xlContains
+	xlDatabar	            xlDoesNotContain
+	
+	e.g. Range("B1:B200").FormatConditions.Add(xlCellValue, xlGreater, "=80")
+	Range("B1:B200").FormatConditions.Add(xlTextString, xlContains, "topper")
+	
+    
+	'Set conditional formatting:
+	Columns("Q:Q").FormatConditions.Add(Type:= xlExpression, Formula1:= "=Q2 <> O2")
+	
+    
+	'Set Priority to this format, will be executed before other rules
+		Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+	
+    
+	'Adjust formatting features:
+		   With Selection.FormatConditions(1).Interior
+		        .PatternColorIndex = xlAutomatic
+		        .Color = 255                                          #red
+		        .TintAndShade = 0
+		    End With
+
+
+8. Action 8: Filter data
+
+a. Filter single column:
+	
+	Range("cell:cell").AutoFilter(Field, Criteria 1, Operator, Criteria 2, Dropdown := True/False)
+
+	○ Explain:
+	+ Field: which column you want to filter out data
+	+ Criteria 1: what you want to filter
+	+ Operator: xlAnd, xlOr, xlBottom10Items, xlTop10Items, xlFilterCellColor
+	+ Criteria 2: what else you want to filter?
+	+ Dropdown: show the visible dropdown arrow.
+
+	e.g. Range("cell:cell").AutoFilter (Field:= 2, Criteria1:= "Q3-2020", Operator:= xlOr, Criteria2:= "Sales")
+	     Range("cell:cell").AutoFilter (Field:= 10, Criteria1:= ">1000", Operator:= xlAnd, Criteria2:= "<3000")
+	
+b. Filter multiple columns: (fill "Criteria 2")
+	
+	With Range("cell:cell").
+		AutoFilter(Field:= 5, Criteria1:= "DSC")
+		Autofilter(Field:= 8, Criteria1:= "WC", Operator:= xlAnd, Criteria2:= "FC")
+	End With
+
+c. Remove filter:
+
+	Worksheets("Sheet1").ShowAllData
+
+
+9. Action 9: Sort Data   
+
+	Range("cell:cell").Sort(Key1:= , Order1:= , Key 2:= , Order2:= , Header:= )
+    
+    ○ Explain
+	+ Key: which column to sort
+	+ Order: xlAscending, xlDescending
+	+ Header:= Yes/No (do we have Header?)
+
+	e.g. Range("A1:E17").Sort Key1:=Range("B1"), Order1:=xlAscending, Key2:=Range("D1"),
+	     Order2:=xlDescending, Header:=xlYes
+
+
+10. Create Charts
+
+	'To Hold Worksheet Reference
+	Dim Ws As Worksheet 
+	
+	'To Hold Range Reference in the Worksheet
+	Dim Range As Range 
+	
+	Dim MyChart As Object
+	
+	'Now variable "Ws" is equal to the sheet "Sheet1"
+	Set Ws = Sheets("sheet_name") 
+	
+	 'Now variable "Rng" holds the range A1 to B7 in the sheet "Sheet1"
+	Set Range = Ws.Range("cell:cell")
+	
+	'Chart will be added as Shape in the same worksheet
+	Set MyChart = Ws.Shapes.AddChart2 
+	
+	With MyChart.Chart
+	.SetSourceData Range
+	.ChartType = xlColumnClustered
+	.ChartTitle.Text = "Sales Performance"
+	
+	End With
+	
+    ○ Explain:
+	+ SetSourceData: data to draw the chart from
+	+ ChartType: type of chart (xlColumnClustered,…)
+	+ ChartTitle: name of chart
+
+
+
+
+
+
