@@ -5,6 +5,6 @@ However, one of the most prominent challenge that excel users face is working wi
 
 Being motivated to solve the pain points and after experiencing them by myself in daily activities of Sales Operations, I developed the solution "VBA scripts for non-technical users". The project aims to automate most popular excel processes, to free users from being trapped in repetitive & exhausted actitives, which reduce their productivity at the end.
 
-One special feature of the scripts: They are simply "drag-and-drop" for non-technical business users and require no preexisting coding knowledge!
+One special feature of the scripts: They are simply "drag-and-drop" for non-technical business users and require no preexisting coding knowledge.
 
-# Enjoy Coding
+Enjoy Coding!
