@@ -1,10 +1,38 @@
 'Mandatory steps need to take before running any Excel command.
-'Step 1: Cover the macro code inside "Sub...End Sub" block:
-    Sub name_of_macro()
+    'Step 1: Cover the macro code inside "Sub...End Sub" block:
+        Sub name_of_macro()
     
-    Put macro code here...
+        Put macro code here...
     
-    End Sub
+        End Sub
    
-'2: Always select objects (sheets, columns, rows, ranges or cells) to perform an actions
+    'Step 2: Always select objects (a sheet, a column, a row, a range or a cell) to perform any action:
+    - Select sheet(s):
+        Sheets("sheet_name").Select                                 e.g. Sheets("Sheet1").Select
+
+    - Select column(s):
+        Columns("col_name:col_name").Select                         e.g. Columns("B").Select or Columns("B:D").Select
+    
+    - Select row(s):
+        Rows("row_number:row_number").Select                        e.g. Rows(1).Select or Rows(1:10).Select
+    
+    - Select a range (multiple cells):
+        Range("top_left_cell:bottom_right cell").Select             e.g. Range("A1:E8").Select
+        Range("top_left_cell", "bottom_right cell").Select          
+    
+    - Select a cell:
+        Range("cell_address").Select                                e.g: Range("A2").Select
+    
+
+    'Step 3: Start to perform action to object (choose on the list below)
+    
+    
+'Actions to be selected:
+
+
+
+
+
+
+
     
