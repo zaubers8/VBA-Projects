@@ -1,34 +1,39 @@
 I. Mandatory steps need to take before running any Excel command:
-    'Step 1: Cover the macro code inside "Sub...End Sub" block:
-        Sub name_of_macro()
-    
-        Put macro code here...
-    
-        End Sub
+
+Step 1: Open VBA interface: in Excel window, press Alt + F11
+Step 2: On the top ribbon, choose Insert => choose Module (to create a new module - code container)
+Step 3: Start writing code inside the new pop-up window of the module.
+
+*Note 1: Always cover the macro code inside "Sub...End Sub" block:
+   Sub name_of_macro()
    
-    'Step 2: Always select objects (a sheet, a column, a row, a range or a cell) to perform any action:
-    - Select sheet(s):
+   Put macro code here...
+    
+   End Sub
+   
+*Note 2: Always select objects (a sheet, a column, a row, a range or a cell) before performing any action:
+- Select sheet(s):
         Sheets("sheet_name").Select                                 e.g. Sheets("Sheet1").Select
 
-    - Select column(s):
+- Select column(s):
         Columns("col_name:col_name").Select                         e.g. Columns("B").Select or Columns("B:D").Select
         or 
         Range("cell").EntireColumn.Select
         
-    - Select row(s):
+- Select row(s):
         Rows("row_number:row_number").Select                        e.g. Rows(1).Select or Rows(1:10).Select
         or
         Range("cell").EntireRow.Select
         
-    - Select a range (multiple cells):
+- Select a range (multiple cells):
         Range("top_left_cell:bottom_right cell").Select             e.g. Range("A1:E8").Select
         Range("top_left_cell", "bottom_right cell").Select          
     
-    - Select a cell:
+- Select a cell:
         Range("cell_address").Select                                e.g. Range("A2").Select
     
 
-    'Step 3: Start to perform action to object (choose on the list below)
+Step 4: Start to perform actions to object (choose actions in the list below):
     
     
 II. Actions to be selected:
@@ -43,10 +48,12 @@ II. Actions to be selected:
 
 2. Action 2: Fill Down Values/Formula
     
-    Range("B1:C4").FillDown
+    Range("cell:cell").FillDown
     
-'.FillDown replicates the Range/Selection formula of the first line, regardless of which ActiveCell is selected.
-'.FillDown can be used at intervals greater than one column (E.g. Range("B1:C2").FillDown will replicate the formulas of B1 and C1 to B2 and C2 respectively).
+*Note:
+- ".FillDown" replicates the Range/Selection formula of the first line, regardless of which ActiveCell is selected.
+- ".FillDown" can be used at intervals greater than one column 
+E.g. Range("B1:C2").FillDown will replicate the formulas of B1 and C1 to B2 and C2 respectively.
 
 
 3. Insert or Delete columns/rows
@@ -57,8 +64,9 @@ a. Insert columns/rows
 	- Range("cell").EntireColumn.Insert
 	
 	'Insert columns, customized direction + format:
-	- Columns("C:C").Insert Shift:= xlToRight, CopyOrigin:= xlFormatFromLeftOrAbove
-
+	- Columns("columne_name:column_name").Insert Shift:= xlToRight, CopyOrigin:= xlFormatFromLeftOrAbove
+		e.g. Columns("B:B").Insert Shift:= xlToRight, CopyOrigin:= xlFormatFromLeftOrAbove
+		
 	• Insert row
 	- Range("cell").EntireRow.Insert
 
