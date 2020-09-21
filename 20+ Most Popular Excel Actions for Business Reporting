@@ -4,7 +4,7 @@ Step 1: Open VBA interface: in Excel window, press Alt + F11
 Step 2: On the top ribbon, choose Insert => choose Module (to create a new module - code container)
 Step 3: Start writing code inside the new pop-up window of the module.
 
-*Note 1: Start a macro code block by "Sub name_of_macro()", end a macro code block by "End Sub". Always put the macro code inside "Sub...End Sub" block:
+*Note 1: Start a macro by writting "Sub name_of_macro()", end a macro code block by "End Sub". Always put the macro code inside "Sub...End Sub" block:
    Sub name_of_macro()
    
    Put macro code here...
@@ -37,6 +37,7 @@ Step 4: Start to perform actions to object (choose actions in the list below):
     
     
 II. Actions to be selected:
+*Note: Copy the code and replace any place where "cell" appears with your excel cell:
 
 1. Action 1: Assign value to cells:
     Sub...
@@ -53,24 +54,23 @@ II. Actions to be selected:
 *Note:
 - ".FillDown" replicates the Range/Selection formula of the first line, regardless of which ActiveCell is selected.
 - ".FillDown" can be used at intervals greater than one column 
-E.g. Range("B1:C2").FillDown will replicate the formulas of B1 and C1 to B2 and C2 respectively.
+
+e.g. Range("B1:C2").FillDown will replicate the formulas of B1 and C1 to B2 and C2 respectively.
 
 
-3. Insert or Delete columns/rows
+3. Action 3: Insert columns/rows
 
-a. Insert columns/rows
-
-	• Insert columns
+• Insert columns
 	- Range("cell").EntireColumn.Insert
 	
-	'Insert columns, customized direction + format:
+• Insert columns, customized direction + format:
 	- Columns("column_name:column_name").Insert Shift:= xlToRight, CopyOrigin:= xlFormatFromLeftOrAbove
 		e.g. Columns("B:B").Insert Shift:= xlToRight, CopyOrigin:= xlFormatFromLeftOrAbove
 		
-	• Insert row
+• Insert row
 	- Range("cell").EntireRow.Insert
 
-	• Insert columns, customized direction + format:
+• Insert columns, customized direction + format:
 	- Rows(row_num:row_num).Insert Shift:= xlDown, CopyOrigin:= xlFormatFromLeftOrAbove
 		e.g. Rows(1:6).Insert Shift:= xlDown, CopyOrigin:= xlFormatFromLeftOrAbove
 
@@ -78,50 +78,39 @@ a. Insert columns/rows
     	+ Shift:= "xlToRight, xlToLeft, xlUp, xlDown" (choose the direction to insert colume)
 
 
-b. Delete
-	Same syntax, replace "Insert" by "Delete"
+4. Action 4: Delete columns/rows
+• Delete columns:
+	Range("cell").EntireColumn.Delete
+	Columns("column_name:column_name").Delete
 	
-	- Range("cell").EntireColumn.Delete
-	- Columns("column_name:column_name").Delete
-	- Range("cell").EntireRow.Delete
-	- Rows(row_num:row_num).Delete
+• Delete rows:
+	Range("cell").EntireRow.Delete
+	Rows(row_num:row_num).Delete
 
 
-4. Action 4: Copy/Cut & Paste
-a. Copy/Cut & Paste
+5. Action 5: Copy/Cut & Paste
 
-	Sub…
+'Choose the sheet, the cell to copy and initiate Cut or Copy
+	Sheets("sheet_name").Range("cell:cell").Copy	or .Cut
     
-	'Choose the sheet to copy from
-	Sheets("sheet_name").Range("cell:cell").Copy/Cu
-    
-	'Initiate Cut/Copy
-	Range("cell:cell").Select
-	Selection.Cut/Copy
-    
-    'Choose the sheet to paste
+'Choose the sheet to paste and initiate Paste
 	Sheets("sheete_name").Range("cell").Paste
-    
-	'Initiate Paste
-	Range("cell").Select
-	Selection.Paste
 	
-	'End Cut/Copy procedure
+'End Cut/Copy procedure
 	Application.CutCopyMode = False
 	
-	End Sub
 
-b. Paste Special:
+6. Action 6: Paste Special
 
-	
+• Syntax:	
 	Range("cell:cell").Copy/Cut
 	Range("cell").PasteSpecial Paste:=___, Operation:= ___, Skipblank _ := ___, Transpose:= ___
 	
     ○ Explain:
-    + Paste:= xlPasteAll, xlPasteFormats, xlPasteFormulars, xlPasteValues,… (choose type of paste)
-
-
-5. Action 5: Get A Range (From a chosen cell to the last used row)
+    	+ Paste:= xlPasteAll, xlPasteFormats, xlPasteFormulars, xlPasteValues,… (choose type of paste)
+	
+	
+7. Action 7: Get a Range (from the chosen cell to the last used row)
 
 a. Get The Last Used Row:
 	
@@ -134,37 +123,38 @@ b. Select A Range To The Last Used Row:
 	Range(Selection, Selection.End(xlDown)).Select
     
     
-6. Action 6: Formattting
+------Group: Formatting Actions------
+8. Action 8: Format Cells Number:
 
-a. Format Cells Number:
-	
 	Range("cell").NumberFormat = …
 	
-
-b. Format Cells Alignment:
+	
+9. Action 9: Format Cells Alignment:
 
 • Alignment:
 	
 	Range("cell").HorizontalAlignment = …
 	Range("cell").VerticalAlignment = …
 	
-	○ Explain:
+	○ Options to fill "...":
 	(xlGeneral, xlCenter, xlDistributed), (xlLeft, xlRight, xlTop, xlBottom)
 
 
-• Text Control
-- Wrap Text:
+• Wrap Text:
 	Range("cell").WrapText = True/False
 	
-- AutoFit Row/Columns:
+10. Action 10: AutoFit Row/Columns
+
 	Rows(number).ShrinkToFit = True/False
 	Columns("A:E").ShrinkToFit = True/False
 	
-- Merge Cells
-	Range("cell").MergeCells = True/False
 	
+11. Action 11: Merge/Unmerge Cells
+	Range("cell").MergeCells = True/False
+
     
-c. Font:
+12. Action 12: Format Font:
+
 	Range("cell:cell").Font.Name = "Times New Roman"
 			       .FontStyle = "Bold"/"Italic"/"Bold Italic"
 			       .Size = 14
@@ -172,16 +162,17 @@ c. Font:
 			       .Underline = xlUnderlineStyleSingle
 			
             
-d. Hiding Formulas: (only when the sheet is protected)
+13. Action 13: Hiding Formulas: (only when the sheet is protected)
+
 	Sheets("name").Range("cell:cell").FormulaHidden = True
 
 
-7. Action 7: Conditional Formatting:
+14. Action 14: Conditional Formatting:
 	
-*Choose which option to conditional format: choose to add new formatting; to modify an existing formatting or to delete:
+'Choose which option to conditional format: choose to add new formatting; to modify an existing formatting or to delete:
 	Range("cell:cell").FormatConditions.Add/Modify/Delete
 
-- Full conditional format syntax:
+'Full conditional format syntax:
 	Range("cell:cell").FormatConditions.Add(Type, Operator, Formula 1, Formula 2)
 		
 	○ Explain:
@@ -219,9 +210,9 @@ d. Hiding Formulas: (only when the sheet is protected)
 		        .Color = 255                                          #red
 		        .TintAndShade = 0
 		    End With
+------END: Formatting Actions------
 
-
-8. Action 8: Filter data
+15. Action 8: Filter data
 
 a. Filter single column:
 	
@@ -249,7 +240,7 @@ c. Remove filter:
 	Worksheets("Sheet1").ShowAllData
 
 
-9. Action 9: Sort Data   
+16. Action 16: Sort Data   
 
 	Range("cell:cell").Sort(Key1:= , Order1:= , Key 2:= , Order2:= , Header:= )
     
@@ -262,7 +253,7 @@ c. Remove filter:
 	     Order2:=xlDescending, Header:=xlYes
 
 
-10. Create Charts
+17. Action 17: Create Charts
 
 	'To Hold Worksheet Reference
 	Dim Ws As Worksheet 
@@ -293,6 +284,38 @@ c. Remove filter:
 	+ ChartType: type of chart (xlColumnClustered,…)
 	+ ChartTitle: name of chart
 
+
+18. Action 18: Use Math Formulas
+○ Description: Assign a formular (WorksheetFunction.Formula_name) to a cell value:
+	Range("cell").Value = WorksheetFunction.Sum(Range("cell:cell"))
+
+○ Other formula: Sum, SumIf, Average, Count, Max, Min 
+		
+
+19. Action 19: Use VLOOKUP Formula
+
+○ Syntax: .Vlookup(Lookup Value, Table array, Column index number, type of match)
+
+	Range("cell").Value = WorksheetFunction.Vlookup(Range("cell").Value, Range("cell:cell"), 2, 0)
+	
+
+20. Action 20: Apply Reference Cell (absolute, mixed reference)
+	
+'Set a cell as a reference cell:
+	Range("cell").FormulaR1C1 = Range("cell").Value
+
+'Calculate a value based on reference cell. Call reference cell by:  R (row) + number + C(column) + number:
+• Absolute reference:
+	Range("cell").FormulaR1C1 = "=R2C2*2"
+			
+• Mixed reference: 
+- Fix column:
+	Range("cell").FormulaR1C1 = "=R[-1]C1*2"
+		
+- Fix row:
+	Range("cell".FormularR1C1 = "=R1C[-1]*2"
+	
+	
 
 
 
