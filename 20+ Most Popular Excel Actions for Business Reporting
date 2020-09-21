@@ -37,7 +37,9 @@ Step 4: Start to perform actions to object (choose actions in the list below):
     
     
 II. Actions to be selected:
-*Note: Copy the code and replace any place where "cell" appears with your excel cell:
+
+*Note: Copy the code and replace any place where "cell", "cell:cell" appears with your excel cell(s): e.g. "A4", "B5:H8"
+
 
 1. Action 1: Assign value to cells:
     Sub...
@@ -123,7 +125,7 @@ b. Select A Range To The Last Used Row:
 	Range(Selection, Selection.End(xlDown)).Select
     
     
-------Group: Formatting Actions------
+--------Group: Formatting Actions--------
 8. Action 8: Format Cells Number:
 
 	Range("cell").NumberFormat = …
@@ -155,8 +157,8 @@ b. Select A Range To The Last Used Row:
     
 12. Action 12: Format Font:
 
-	Range("cell:cell").Font.Name = "Times New Roman"
-			       .FontStyle = "Bold"/"Italic"/"Bold Italic"
+	Range("cell:cell").Font.Name = "Times New Roman",...
+			       .FontStyle = "Bold", "Italic" or "Bold Italic"
 			       .Size = 14
 			       .Color = vbBlack/vbRed…
 			       .Underline = xlUnderlineStyleSingle
@@ -200,19 +202,20 @@ b. Select A Range To The Last Used Row:
 	Columns("Q:Q").FormatConditions.Add(Type:= xlExpression, Formula1:= "=Q2 <> O2")
 	
     
-	'Set Priority to this format, will be executed before other rules
-		Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+'Set Priority to this format, will be executed before other rules
+	Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
 	
     
-	'Adjust formatting features:
-		   With Selection.FormatConditions(1).Interior
-		        .PatternColorIndex = xlAutomatic
-		        .Color = 255                                          #red
-		        .TintAndShade = 0
-		    End With
-------END: Formatting Actions------
+'Adjust formatting features:
+	With Selection.FormatConditions(1).Interior
+		      .PatternColorIndex = xlAutomatic
+		      .Color = 255                                   #red
+		      .TintAndShade = 0
+	End With
+	
+--------END: Formatting Actions--------
 
-15. Action 8: Filter data
+15. Action 15: Filter data
 
 a. Filter single column:
 	
@@ -222,11 +225,12 @@ a. Filter single column:
 	+ Field: which column you want to filter out data
 	+ Criteria 1: what you want to filter (name of value in this column)
 	+ Operator: xlAnd, xlOr, xlBottom10Items, xlTop10Items, xlFilterCellColor
-	+ Criteria 2: what else you want to filter? (name of value in this column)
+	+ Criteria 2: what else you want to filter? (only required for applying multiple filters)
 	+ Dropdown: show the visible dropdown arrow.
 
 	e.g. Range("cell:cell").AutoFilter (Field:= 2, Criteria1:= "Q3-2020", Operator:= xlOr, Criteria2:= "Sales")
 	     Range("cell:cell").AutoFilter (Field:= 10, Criteria1:= ">1000", Operator:= xlAnd, Criteria2:= "<3000")
+	
 	
 b. Filter multiple columns: (fill "Criteria 2")
 	
@@ -234,6 +238,7 @@ b. Filter multiple columns: (fill "Criteria 2")
 		AutoFilter(Field:= 5, Criteria1:= "DSC")
 		Autofilter(Field:= 8, Criteria1:= "WC", Operator:= xlAnd, Criteria2:= "FC")
 	End With
+
 
 c. Remove filter:
 
@@ -249,27 +254,25 @@ c. Remove filter:
 	+ Order: xlAscending, xlDescending
 	+ Header:= Yes/No (do we have Header?)
 
-	e.g. Range("A1:E17").Sort Key1:=Range("B1"), Order1:=xlAscending, Key2:=Range("D1"),
-	     Order2:=xlDescending, Header:=xlYes
+	e.g. Range("A1:E17").Sort Key1:=Range("B1"), Order1:=xlAscending, Key2:=Range("D1"), Order2:=xlDescending, Header:=xlYes
 
 
 17. Action 17: Create Charts
-
-	'To Hold Worksheet Reference
+	
+'To Hold Worksheet Reference
 	Dim Ws As Worksheet 
 	
-	'To Hold Range Reference in the Worksheet
-	Dim Range As Range 
-	
+'To Hold Range Reference in the Worksheet
+	Dim Range As Range 	
 	Dim MyChart As Object
 	
-	'Now variable "Ws" is equal to the sheet "Sheet1"
+'Now variable "Ws" is equal to the sheet "Sheet1"
 	Set Ws = Sheets("sheet_name") 
 	
-	 'Now variable "Rng" holds the range A1 to B7 in the sheet "Sheet1"
+'Now variable "Rng" holds the range A1 to B7 in the sheet "Sheet1"
 	Set Range = Ws.Range("cell:cell")
 	
-	'Chart will be added as Shape in the same worksheet
+'Chart will be added as Shape in the same worksheet
 	Set MyChart = Ws.Shapes.AddChart2 
 	
 	With MyChart.Chart
@@ -316,8 +319,6 @@ c. Remove filter:
 	Range("cell".FormularR1C1 = "=R1C[-1]*2"
 	
 	
-
-
 
 
 
