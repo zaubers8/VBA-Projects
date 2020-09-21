@@ -149,7 +149,7 @@ b. Format Cells Alignment:
 	Range("cell").VerticalAlignment = …
 	
 	○ Explain:
-	(xlGeneral, xlCenter, xlDistributed), xlLeft, xlRight, xlTop, xlBottom
+	(xlGeneral, xlCenter, xlDistributed), (xlLeft, xlRight, xlTop, xlBottom)
 
 
 • Text Control
