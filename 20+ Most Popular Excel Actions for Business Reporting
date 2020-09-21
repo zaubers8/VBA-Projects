@@ -33,7 +33,7 @@ Step 3: Start writing code inside the new pop-up window of the module.
         Range("cell_address").Select                                e.g. Range("A2").Select
     
 
-Step 4: Start to perform actions to object (choose actions in the list below):
+Step 4: Start to perform actions to object (choose actions in the list II below):
     
     
 II. Actions to be selected:
