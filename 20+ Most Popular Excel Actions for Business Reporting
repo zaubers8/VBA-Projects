@@ -4,7 +4,7 @@ Step 1: Open VBA interface: in Excel window, press Alt + F11
 Step 2: On the top ribbon, choose Insert => choose Module (to create a new module - code container)
 Step 3: Start writing code inside the new pop-up window of the module.
 
-*Note 1: Always cover the macro code inside "Sub...End Sub" block:
+*Note 1: Start a macro code block by "Sub name_of_macro()", end a macro code block by "End Sub". Always put the macro code inside "Sub...End Sub" block:
    Sub name_of_macro()
    
    Put macro code here...
