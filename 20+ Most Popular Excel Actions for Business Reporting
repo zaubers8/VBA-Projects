@@ -64,25 +64,30 @@ a. Insert columns/rows
 	- Range("cell").EntireColumn.Insert
 	
 	'Insert columns, customized direction + format:
-	- Columns("columne_name:column_name").Insert Shift:= xlToRight, CopyOrigin:= xlFormatFromLeftOrAbove
+	- Columns("column_name:column_name").Insert Shift:= xlToRight, CopyOrigin:= xlFormatFromLeftOrAbove
 		e.g. Columns("B:B").Insert Shift:= xlToRight, CopyOrigin:= xlFormatFromLeftOrAbove
 		
 	• Insert row
 	- Range("cell").EntireRow.Insert
 
 	• Insert columns, customized direction + format:
-	- Rows(1:6).Insert Shift:= xlDown, CopyOrigin:= xlFormatFromLeftOrAbove
+	- Rows(row_num:row_num).Insert Shift:= xlDown, CopyOrigin:= xlFormatFromLeftOrAbove
+		e.g. Rows(1:6).Insert Shift:= xlDown, CopyOrigin:= xlFormatFromLeftOrAbove
+
+	○ Explain:
+    	+ Shift:= "xlToRight, xlToLeft, xlUp, xlDown" (choose the direction to insert colume)
 
 
 b. Delete
-	Same syntax, replace "insert" by "Delete"
+	Same syntax, replace "Insert" by "Delete"
 	
-	○ Explain:
-    Shift:= "xlToRight, xlToLeft, xlUp, xlDown"
+	- Range("cell").EntireColumn.Delete
+	- Columns("column_name:column_name").Delete
+	- Range("cell").EntireRow.Delete
+	- Rows(row_num:row_num).Delete
 
 
 4. Action 4: Copy/Cut & Paste
-
 a. Copy/Cut & Paste
 
 	Sub…
@@ -108,39 +113,28 @@ a. Copy/Cut & Paste
 
 b. Paste Special:
 
-	Sub…
 	
 	Range("cell:cell").Copy/Cut
 	Range("cell").PasteSpecial Paste:=___, Operation:= ___, Skipblank _ := ___, Transpose:= ___
 	
-	End Sub
-	
     ○ Explain:
-    + Paste:= (xlPasteAll, xlPasteFormats, xlPasteFormulars, xlPasteValues,…)
+    + Paste:= xlPasteAll, xlPasteFormats, xlPasteFormulars, xlPasteValues,… (choose type of paste)
 
 
-5. Action 5: Get A Range To The Last Used Row
+5. Action 5: Get A Range (From a chosen cell to the last used row)
 
 a. Get The Last Used Row:
 	
-	Sub
-	
 	Range("cell").End(xlDown).EntireRow.Select
-	
-	End Sub
 
 
 b. Select A Range To The Last Used Row:
 	
-	Sub
-	
 	Range("cell:cell").Select
 	Range(Selection, Selection.End(xlDown)).Select
-	
-    End Sub
     
     
-6. 	Action 6: Formattting
+6. Action 6: Formattting
 
 a. Format Cells Number:
 	
@@ -154,7 +148,7 @@ b. Format Cells Alignment:
 	Range("cell").HorizontalAlignment = …
 	Range("cell").VerticalAlignment = …
 	
-		○ Explain:
+	○ Explain:
 	(xlGeneral, xlCenter, xlDistributed), xlLeft, xlRight, xlTop, xlBottom
 
 
@@ -172,10 +166,10 @@ b. Format Cells Alignment:
     
 c. Font:
 	Range("cell:cell").Font.Name = "Times New Roman"
-				        .FontStyle = "Bold"/"Italic"/"Bold Italic"
-				        .Size = 14
-				        .Color = vbBlack/vbRed…
-				        .Underline = xlUnderlineStyleSingle
+			       .FontStyle = "Bold"/"Italic"/"Bold Italic"
+			       .Size = 14
+			       .Color = vbBlack/vbRed…
+			       .Underline = xlUnderlineStyleSingle
 			
             
 d. Hiding Formulas: (only when the sheet is protected)
@@ -184,11 +178,11 @@ d. Hiding Formulas: (only when the sheet is protected)
 
 7. Action 7: Conditional Formatting:
 	
-	'Choose options of new conditional format: choose to format/modify an exsiting one or delete:
-		Range("cell:cell").FormatConditions.Add/Modify/Delete
+*Choose which option to conditional format: choose to add new formatting; to modify an existing formatting or to delete:
+	Range("cell:cell").FormatConditions.Add/Modify/Delete
 
-	- Syntax:
-		Range("cell:cell").FormatConditions.Add(Type, Operator, Formula 1, Formula 2)
+- Full conditional format syntax:
+	Range("cell:cell").FormatConditions.Add(Type, Operator, Formula 1, Formula 2)
 		
 	○ Explain:
 	+ Type: required, the conditional format will be based on cell value or an expression?
@@ -211,7 +205,7 @@ d. Hiding Formulas: (only when the sheet is protected)
 	Range("B1:B200").FormatConditions.Add(xlTextString, xlContains, "topper")
 	
     
-	'Set conditional formatting:
+    	e.g set conditional formatting with expression:
 	Columns("Q:Q").FormatConditions.Add(Type:= xlExpression, Formula1:= "=Q2 <> O2")
 	
     
@@ -235,9 +229,9 @@ a. Filter single column:
 
 	○ Explain:
 	+ Field: which column you want to filter out data
-	+ Criteria 1: what you want to filter
+	+ Criteria 1: what you want to filter (name of value in this column)
 	+ Operator: xlAnd, xlOr, xlBottom10Items, xlTop10Items, xlFilterCellColor
-	+ Criteria 2: what else you want to filter?
+	+ Criteria 2: what else you want to filter? (name of value in this column)
 	+ Dropdown: show the visible dropdown arrow.
 
 	e.g. Range("cell:cell").AutoFilter (Field:= 2, Criteria1:= "Q3-2020", Operator:= xlOr, Criteria2:= "Sales")
