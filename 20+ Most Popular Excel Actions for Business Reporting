@@ -72,7 +72,7 @@ e.g. Range("B1:C2").FillDown will replicate the formulas of B1 and C1 to B2 and 
 • Insert row
 	- Range("cell").EntireRow.Insert
 
-• Insert columns, customized direction + format:
+• Insert rows, customized direction + format:
 	- Rows(row_num:row_num).Insert Shift:= xlDown, CopyOrigin:= xlFormatFromLeftOrAbove
 		e.g. Rows(1:6).Insert Shift:= xlDown, CopyOrigin:= xlFormatFromLeftOrAbove
 
